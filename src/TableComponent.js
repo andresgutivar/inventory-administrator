@@ -3,6 +3,8 @@ import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Table from "react-bootstrap/Table";
+import { ThemeContext } from "./App.js";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom"; //libreria para redirejir a otra web *1
 import { useState } from "react";
 
@@ -12,6 +14,8 @@ function TableComponent({ datos, db }) {
   const [cantidadItem, setCantidadItem] = useState("");
   const [modoEdicion, setModoEdicion] = useState(false);
   const [itemEdicionId, setItemEdicionId] = useState();
+
+  const { theme } = useContext(ThemeContext);
 
   const navigate = useNavigate(); //*1 necesario para usar la libreria que te redirije
   function agregarItem() {
@@ -41,7 +45,7 @@ function TableComponent({ datos, db }) {
         Agregar Item
       </Button>
       <br />
-      <Table responsive>
+      <Table responsive variant={theme}>
         <thead>
           <tr>
             <th>Codigo de barras</th>
