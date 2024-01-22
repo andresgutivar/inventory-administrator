@@ -11,6 +11,7 @@ function TableComponent({ datos, db }) {
   const [precioItem, setPrecioItem] = useState("");
   const [cantidadItem, setCantidadItem] = useState("");
   const [modoEdicion, setModoEdicion] = useState(false);
+  const [itemEdicionId, setItemEdicionId] = useState();
 
   const navigate = useNavigate(); //*1 necesario para usar la libreria que te redirije
   function agregarItem() {
@@ -54,13 +55,11 @@ function TableComponent({ datos, db }) {
         <tbody>
           {datos &&
             datos.map((item) => {
-              return (
-                <tr>
-                  <td>{item.id}</td>
-                  <td>
-                    {modoEdicion === false ? (
-                      item.Nombre
-                    ) : (
+              if (modoEdicion === true && itemEdicionId === item.id) {
+                return (
+                  <tr>
+                    <td>{item.id}</td>
+                    <td>
                       <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Control
                           value={nombreItem}
@@ -70,12 +69,8 @@ function TableComponent({ datos, db }) {
                           required
                         />
                       </Form.Group>
-                    )}
-                  </td>
-                  <td>
-                    {modoEdicion === false ? (
-                      item.Precio
-                    ) : (
+                    </td>
+                    <td>
                       <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Control
                           value={precioItem}
@@ -85,12 +80,8 @@ function TableComponent({ datos, db }) {
                           required
                         />
                       </Form.Group>
-                    )}
-                  </td>
-                  <td>
-                    {modoEdicion === false ? (
-                      item.Cantidad
-                    ) : (
+                    </td>
+                    <td>
                       <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Control
                           value={cantidadItem}
@@ -100,23 +91,9 @@ function TableComponent({ datos, db }) {
                           required
                         />
                       </Form.Group>
-                    )}
-                  </td>
-                  <td>{item.Precio * item.Cantidad}</td>
-                  <td>
-                    {modoEdicion === false ? (
-                      <Button
-                        variant="outline-primary"
-                        onClick={() => {
-                          setModoEdicion(true);
-                          setNombreItem(item.Nombre);
-                          setCantidadItem(item.Cantidad);
-                          setPrecioItem(item.Precio);
-                        }}
-                      >
-                        Editar Item
-                      </Button>
-                    ) : (
+                    </td>
+                    <td>{item.Precio * item.Cantidad}</td>
+                    <td>
                       <Button
                         variant="success"
                         type="submit"
@@ -124,16 +101,7 @@ function TableComponent({ datos, db }) {
                       >
                         Guardar
                       </Button>
-                    )}
 
-                    {modoEdicion === false ? (
-                      <Button
-                        variant="outline-primary"
-                        onClick={() => eliminarItem(item)}
-                      >
-                        Eliminar Item
-                      </Button>
-                    ) : (
                       <Button
                         variant="danger"
                         onClick={() => {
@@ -145,10 +113,41 @@ function TableComponent({ datos, db }) {
                       >
                         Cancelar
                       </Button>
-                    )}
-                  </td>
-                </tr>
-              );
+                    </td>
+                  </tr>
+                );
+              } else {
+                return (
+                  <tr>
+                    <td>{item.id}</td>
+                    <td>{item.Nombre}</td>
+                    <td>{item.Precio}</td>
+                    <td>{item.Cantidad}</td>
+                    <td>{item.Precio * item.Cantidad}</td>
+                    <td>
+                      <Button
+                        variant="outline-primary"
+                        onClick={() => {
+                          setModoEdicion(true);
+                          setItemEdicionId(item.id);
+                          setNombreItem(item.Nombre);
+                          setCantidadItem(item.Cantidad);
+                          setPrecioItem(item.Precio);
+                        }}
+                      >
+                        Editar Item
+                      </Button>
+
+                      <Button
+                        variant="outline-primary"
+                        onClick={() => eliminarItem(item)}
+                      >
+                        Eliminar Item
+                      </Button>
+                    </td>
+                  </tr>
+                );
+              }
             })}
         </tbody>
       </Table>
