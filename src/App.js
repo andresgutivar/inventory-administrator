@@ -12,12 +12,12 @@ import TableComponent from "./TableComponent.js";
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDbuMXrmRBrh6QwbFM0IFONMNByaTcHFGI",
-  authDomain: "administration-inventory.firebaseapp.com",
-  projectId: "administration-inventory",
-  storageBucket: "administration-inventory.appspot.com",
-  messagingSenderId: "532056393200",
-  appId: "1:532056393200:web:c3ddf6d5ea92b098624935",
+  apiKey: "XXXX",
+  authDomain: "XXXX",
+  projectId: "XXX",
+  storageBucket: "XXX",
+  messagingSenderId: "X",
+  appId: "XXXX",
 };
 
 const app = initializeApp(firebaseConfig); //app seria
